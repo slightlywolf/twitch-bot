@@ -9,10 +9,20 @@
   },
   "repository": {
     "type": "git",
-    "url"
+    "url": "git+https://github.com/slightlywolf/jackobot.git"
   },
-  "author": "",
-  "license": "ISC",
+  "keywords" : [
+    "Twitch",
+    "node.js",
+    "chat",
+    "bot"
+  ],
+  "author": "-reidog",
+  "license": "GPL3",
+  "bugs": {
+    "url": "https://github.com/slightlywolf/jackobot/issues"
+  },
+  "homepage": "https://github.com/slightlywolf/jackobot#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
     "tmi.js": "^1.8.5"

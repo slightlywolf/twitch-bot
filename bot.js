@@ -1,64 +1,87 @@
-const tmi = require("tmi.js");
 const utility = require("./utility");
+const commands = require("./commands");
+const bot = require("./bot");
+
+//env settings
+require('dotenv').config();
+const tmi = require("tmi.js");
+
+
+
+
 
 // define configuration options
 const opts = {
+  options: {debug: true, messagesLogLevel: "info" },
   identity: {
-    username: "minusreidog",
-    password: "ol1oxibsazwu1wjlhwhrh309ufcc6r",
-    /* old auth id */
-    // khxd2rykff5jy2vxfkw6eja7wg08iq
+    username: `${process.env.TWITCH_USERNAME}`,
+    password: `oauth:${process.env.TWITCH_TOKEN}`,
   },
-  channels: ["minusreidog"],
+  connection: { reconnect : true, secure: true},
+  channels: [`${process.env.TWITCH_CHANNEL}`]
 };
+
+// to generate a token
+// twitch token -u -s 'chat:read chat:edit'
 
 // create a client with our options
 const client = new tmi.client(opts);
 
-//register our event handlers (defined below)
-client.on("message", onMessageHandler);
-client.on("connected", onConnectedHandler);
-
 //connect to Twitch:
+client.connect().catch(
+  console.error
+);
 
-client.connect();
-
-/*************************Message Handling **********************/
-
+//register our event handlers (defined below)
+client.on("connected", onConnectedHandler);
 function onConnectedHandler(addr, port) {
   console.log(`* Connected to ${addr}:${port}`);
 }
 
-function onMessageHandler(target, context, msg, self) {
-  if (self) {
-    return;
-  } // ignore self messages
+/*************************Message Handling **********************/
+client.on('message', (channel, tags, msg, self) =>{
+  //tags['display-name'] displays the display name
+  /* remove surrounding whitespace */
+  trimmedMsg = msg.trim()
+  /* get the arguments */
+  args = utility.split_arguments(trimmedMsg)
+  /* get the command nam and remove the exclaimation mark */
+  commandName = trimmedMsg.split(" ")[0]
 
-  // remove whitespace from the input chatmessage
-  const commandName = msg.trim();
-
-  // If the command is known, let's execute it
-  if (commandName === "!dice") {
-    diceMsg(target);
-  }
-  else if(commandName === "suck")
+  /* if its own message then return */
+  if(self) return;
+  /* if the first character isnt ! then return */
+  if(commandName[0] != '!') return;
+  /*********************************************/
+  if(commandName in commands.cmds)
   {
-	print(target,"Just like your mother...")
+        /* get the function */
+        funcObject = commands.cmds[commandName];
+        /* get the reference to the function real */
+        functionReal = funcObject["func"];
+        /* run the function */
+        functionReal(channel, commandName, args, tags);
   }
-  else {
-    /******************Otherwise ************/
-	print(target, `Unknown command ${commandName}`)
+  else if(!(commandName in commands.cmds) && commandName[0] === '!')
+  {
+    utility.not_recognised(channel, commandName)
   }
-}
-/****************************Message Functions********************* */
+});
 
-function diceMsg(target) {
-  const num = utility.rollDice();
-  client.say(target, `🦆-> You rolled a ${num}!`);
-}
 
-function print(target, str)
+
+/****************************
+ * Wrapper for the client say function
+ *******************************/
+exports.print = function print(target, str)
 {
-	console.log(`🦆-> ${str}`);
+  console.log(`🦆-> ${str}`);
     client.say(target, `🦆-> ${str}`);
 }
+
+
+
+
+
+
+
