@@ -1,0 +1,24 @@
+{
+  "name": "twitch-bot",
+  "version": "1.0.0",
+  "description": "bot for twitch chat",
+  "main": "bot.js",
+  "scripts": {
+    "start" : "node bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "prettier": "2.7.1"
+  }
+}
