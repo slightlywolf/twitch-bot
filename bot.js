@@ -18,7 +18,7 @@ const opts = {
     password: `oauth:${process.env.TWITCH_TOKEN}`,
   },
   connection: { reconnect : true, secure: true},
-  channels: [`${process.env.TWITCH_CHANNEL}`]
+  channels: ["minusreidog", "jackolightttv"]
 };
 
 // to generate a token
