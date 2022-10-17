@@ -1,5 +1,6 @@
 const utility = require("./utility");
 const bot = require("./bot");
+const { client } = require("tmi.js");
 /**************************** Message Functions********************* */
 /**********************************Map */
 // map of all commands
@@ -35,8 +36,56 @@ exports.cmds = {
 	"!pussy" : {
 		"func" : pussy_command,
 		"desc" : "its you"
+	},
+	"!👉👌" : {
+		"func" : pointhole_command,
+		"desc" : "absoultely..."
+	},
+	"!marbles" : {
+		"func" : marbles_command,
+		"desc" : "the suspence is killing me"
+	},
+	// marbles
+	"!play" : {
+		"func" : automarbles_command,
+		"desc" : "Join the marbles game when marbles is being streamed..."
+	},
+	"!boost" : {
+		"func" : empty_command,
+		"desc" : "Boost your marble..."
+	},
+	"!target" : {
+		"func" : empty_command,
+		"desc" : "target another marble"
+	},
+	"!vote" : {
+		"func" : empty_command,
+		"desc" : "vote for a map on marbles"
+	},
+	//marbles
+	"!clap" : {
+		"func" : clap_command,
+		"desc" : "Boost your marble..."
 	}
 }
+
+exports.hidcmds =
+{
+	"rigged" : {
+		"func" : rigged_command,
+		"desc" : ":)"
+	},
+	"rlgged" : {
+		"func" : rlgged_command,
+		"desc" : "semmetje123 isnt as clever as he thinks"
+	}
+}
+
+exports.bully =
+[
+	//"semmetje123"
+]
+
 
 
 
@@ -121,4 +170,47 @@ function pussy_command(target, msg, args, tags)
 	bot.print(target, `${tags['display-name']}`);
 }
 
+function pointhole_command(target, msg, args, tags)
+{
+	bot.print(target, `absolutely`);
+}
+
+function marbles_command(target, msg, args, tags)
+{
+	bot.print(target, `the suspence is killing me`);
+}
+
+function automarbles_command(target, msg, args, tags)
+{
+	if(tags['display-name'].toLowerCase() === "jackolightttv" )
+	{
+		bot.printquiet(target, "!play");
+	}
+}
+
+function clap_command(target, msg, args, tags)
+{
+	//👏
+	bot.printquiet(target, "👏👏👏👏")
+
+}
+function rigged_command(target, msg, args, tags)
+{
+	//👏
+	bot.print(target, "skill issue")
+
+}
+
+function rlgged_command(target, msg, args, tags)
+{
+	//👏
+	bot.print(target, "semmetje123 issue")
+
+}
+
+
+function empty_command(target, msg, args, tags)
+{
+	//do nothing//
+}
 
