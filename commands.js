@@ -66,7 +66,27 @@ exports.cmds = {
 	"!clap" : {
 		"func" : clap_command,
 		"desc" : "Boost your marble..."
+	},
+	//Hug command
+	"!hug" : {
+		"func" : hug_command,
+		"desc" : "Hug command (req by tinker_bell133 ❤️)"
+	},
+	//afk and lurk commands
+	"!afk" : {
+		"func" : afk_command,
+		"desc" : "Let the streamer know you are afk"
+	},
+	//afk and lurk commands
+	"!lurk" : {
+		"func" : lurk_command,
+		"desc" : "Let the streamer know you are lurking"
+	},
+	"!imback" : {
+		"func" : imback_command,
+		"desc" : "Let the streamer know you have come back from afk/lurk"
 	}
+
 }
 
 exports.hidcmds =
@@ -149,7 +169,6 @@ function discord_command(target, msg, args, tags)
 	bot.print(target, "https://discord.com/invite/Nshn8bhn2m");
 }
 
-
 function socials_command(target, msg, args, tags)
 {
 	const twitter = "TWITTER: https://twitter.com/JackolightTTV :"
@@ -194,6 +213,7 @@ function clap_command(target, msg, args, tags)
 	bot.printquiet(target, "👏👏👏👏")
 
 }
+
 function rigged_command(target, msg, args, tags)
 {
 	//👏
@@ -208,6 +228,32 @@ function rlgged_command(target, msg, args, tags)
 
 }
 
+function hug_command(target, msg, args, tags)
+{
+	if(args.length < 1)
+	{
+		bot.print(target, `${tags['display-name']} has no one to hug`)
+	}
+	else
+	{
+		bot.print(target, `${tags['display-name']} hugs ${args[0]}`)
+	}
+}
+
+function lurk_command(target, msg, args, tags)
+{
+	bot.print(target, `${tags['display-name']} is lurking`)
+}
+
+function afk_command(target, msg, args, tags)
+{
+	bot.print(target, `${tags['display-name']} has gone afk`)
+}
+
+function imback_command(target, msg, args, tags)
+{
+	bot.print(target, `${tags['display-name']} has returned`)
+}
 
 function empty_command(target, msg, args, tags)
 {

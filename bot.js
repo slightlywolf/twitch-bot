@@ -7,9 +7,6 @@ require('dotenv').config();
 const tmi = require("tmi.js");
 
 
-
-
-
 // define configuration options
 const opts = {
   options: {debug: true, messagesLogLevel: "info" },
@@ -92,8 +89,6 @@ client.on('message', (channel, tags, msg, self) =>{
     utility.not_recognised(channel, commandName)
   }
 });
-
-
 
 /****************************
  * Wrapper for the client say function
